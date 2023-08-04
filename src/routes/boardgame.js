@@ -7,8 +7,8 @@ import { getDatesISOFormat } from "../utils/utils.js";
 
 boardGameRoute.get("/", async (req, res) => {
   try {
-    const dates = getDatesISOFormat();
-    const data = await fetchPlaysByDate(dates);
+    const { dateArray } = getDatesISOFormat();
+    const data = await fetchPlaysByDate(dateArray);
     if (!data) {
       return res.status(404).send("Nothing Found");
     }

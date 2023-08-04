@@ -10,5 +10,5 @@ export function getDatesISOFormat() {
       console.error(err);
     }
   }
-  return dateArray.reverse();
+  return { dateArray: dateArray.reverse() };
 }
