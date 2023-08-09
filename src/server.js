@@ -24,6 +24,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   // Initialize daily fetching of data
   dailyFetch();
-
   console.log(`Listening on port ${PORT}`);
 });

@@ -3,6 +3,8 @@ import schedule from "node-schedule";
 import fs from "fs";
 import { processPlays } from "../middleware/boardgameMiddleWare.js";
 import { fetchPlaysByDate } from "./fetchUtils.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
 export function getDatesISOFormat() {
   const dateArray = [];
@@ -18,10 +20,10 @@ export function getDatesISOFormat() {
 }
 
 export function dailyFetch() {
-  // Fetch Data once per day at 8PM
-  // Initual Data is scraped at 7PM
+  // Fetch Data once per day at 3AM UTC | 0 3 * * *
+  // Initial Data is scraped at 2AM UTC | 0 2 * * *
   // Fetched data is written to a local JSON file which is served by the route.
-  const cronString = "0 20 * * *";
+  const cronString = "0 3 * * *";
   const { dateArray } = getDatesISOFormat();
 
   schedule.scheduleJob(cronString, async () => {
@@ -31,11 +33,12 @@ export function dailyFetch() {
   });
 }
 
-function writeData(data) {
+export function writeData(data) {
   const jsonData = JSON.stringify(data);
-  fs.writeFile("./src/data/boardGameData.json", jsonData, (err) => {
+  const absolutePath = process.env.BOARDGAMEDATA;
+  fs.writeFile(absolutePath, jsonData, (err) => {
     if (err) {
-      console.error("Error writing data to file", err);
+      console.error("Error writing data to file \n", err);
       return;
     }
     console.log("File written successfully");
