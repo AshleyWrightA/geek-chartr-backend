@@ -1,4 +1,4 @@
-import { fetchPlayByID, fetchOneBoardGameByID } from "../data/boardgameData.js";
+import { fetchPlayByID, fetchOneBoardGameByID } from "../utils/fetchUtils.js";
 
 export async function processPlays(playArray) {
   const filteredPlayArray = removeDuplicates(playArray);

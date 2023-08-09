@@ -1,21 +1,16 @@
 import express from "express";
-
+import data from "../data/boardGameData.json" assert { type: "json" };
 const boardGameRoute = express.Router();
-import { fetchPlaysByDate } from "../data/boardgameData.js";
-import { processPlays } from "../middleware/boardgameMiddleWare.js";
-import { getDatesISOFormat } from "../utils/utils.js";
 
 boardGameRoute.get("/", async (req, res) => {
   try {
-    const { dateArray } = getDatesISOFormat();
-    const data = await fetchPlaysByDate(dateArray);
-    if (!data) {
+    const result = data;
+    if (!result) {
       return res.status(404).send("Nothing Found");
     }
-    const preparedData = await processPlays(data);
-    res.send(preparedData);
+    res.send(result);
   } catch (err) {
-    res.status(500).send("An error occured");
+    res.status(500).send("An error occured getting boardgame data.");
     console.log(err);
   }
 });

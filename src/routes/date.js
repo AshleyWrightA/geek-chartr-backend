@@ -2,6 +2,8 @@ import express from "express";
 import { getDatesISOFormat } from "../utils/utils.js";
 
 const dateRoute = express.Router();
+
+// Date data for the frontend
 dateRoute.get("/", async (req, res) => {
   try {
     const dates = getDatesISOFormat();
@@ -10,7 +12,7 @@ dateRoute.get("/", async (req, res) => {
     }
     res.send(dates);
   } catch (err) {
-    res.status("500").send("An error occured");
+    res.status("500").send("An error occured getting dates");
   }
 });
 
