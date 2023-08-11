@@ -20,10 +20,10 @@ export function getDatesISOFormat() {
 }
 
 export function dailyFetch() {
-  // Fetch Data once per day at 3AM UTC | 0 3 * * *
-  // Initial Data is scraped at 2AM UTC | 0 2 * * *
+  // Fetch Data once per day at 9PM UTC | 0 21 * * *
+  // Initial Data is scraped at 8PM UTC | 0 20 * * *
   // Fetched data is written to a local JSON file which is served by the route.
-  const cronString = "0 3 * * *";
+  const cronString = "0 21 * * *";
   const { dateArray } = getDatesISOFormat();
 
   schedule.scheduleJob(cronString, async () => {
