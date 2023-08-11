@@ -3,12 +3,12 @@ import schedule from "node-schedule";
 import fs from "fs";
 import { processPlays } from "../middleware/boardgameMiddleWare.js";
 import { fetchPlaysByDate } from "./fetchUtils.js";
-import { fileURLToPath } from "url";
-import path from "path";
 
 export function getDatesISOFormat() {
   const dateArray = [];
-  for (let i = 1; i <= 14; i++) {
+
+  //Get the last 14 days, excluding yesterday & today
+  for (let i = 2; i <= 15; i++) {
     try {
       let date = Temporal.Now.plainDateISO();
       dateArray.push(date.subtract({ days: i }).toString());
